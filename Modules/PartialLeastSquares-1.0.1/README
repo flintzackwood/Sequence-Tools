@@ -1,0 +1,14 @@
+
+
+The PartialLeastSquares module is a Python implementation of
+the Partial Least Squares algorithm for making
+multidimensional predictions from multidimensional
+observations.
+
+It is highly recommended that you read the README in the 
+'Examples' directory if you wish to become familiar with
+this module.
+
+If there are any questions about this module, contact the
+author at 'kak@purdue.edu' with the string PLS in the
+subject line to get past his spam filter.

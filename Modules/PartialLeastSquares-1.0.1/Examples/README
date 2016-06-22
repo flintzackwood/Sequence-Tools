@@ -1,0 +1,53 @@
+ 
+      IN ORDER TO BECOME FAMILIAR WITH THE PartialLeastSquares MODULE
+      ===============================================================
+
+
+The best way to become familiar with this module is by executing the
+following scripts in the Examples subdirectory:
+
+1.  PLS_regression_with_supplied_X_and_Y.py
+
+    This script computes the matrix B of regression coefficients from the X
+    and Y matrices that are supplied to it in the form of CSV files through
+    two constructor options.  The CSV files are included in the Examples
+    directory.
+    
+    After the script has received B from the module, it enters an
+    interactive mode in which it will ask you to enter a a new observation
+    record.  The numbers you enter should correspond roughly to what you
+    are likely to place in a row of the X matrix.  The script returns the
+    predictions that can be made for the values you entered.  The predicted
+    values correspond to what you are likely to see in one row of Y.
+
+
+2.  head_pose_estimation_with_PLS_regression_toy_example.py
+
+    This script first learns the regression-coefficients matrix B from the
+    images in a `training' directory and then applies the regression to
+    estimate the head pose for the 2D images in a `testing' directory.  For
+    the purpose of training and testing, the script assumes that the name
+    of each image file encodes the associated values of the roll, pitch,
+    and yaw parameters of the head pose in the image.
+
+
+3.  face_recognition_with_PLS_toy_example.py
+
+    This script uses the PLS1 algorithm for face recognition.  The PLS1
+    algorithm is designed specifically for the case when the Y matrix
+    consists of only one column.  For each row of the X matrix (which is a
+    vector representation of a face), we place in the Y matrix +1 for the
+    positive faces and -1 for the negative faces.  This is done separately
+    for the training and the testing images.
+
+    This script specifically invokes PLS1() because it is designed
+    specifically for face and object recognition where the predicted values
+    can be modeled in the form of a single column Y matrix.
+
+    However, nothing prevents you from using PLS() also for the face
+    recognition example.  In fact, for the specific datasets packaged with
+    this module, you'll see better performance with PLS() than with PLS1()
+    for the accuracy in face recognition. (CAUTION: This claim is based on
+    playing with very small datasets and, therefore, may or may not be
+    valid for other datasets.)
+

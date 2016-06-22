@@ -1,0 +1,46 @@
+ARDRegression(alpha_1=1e-06, alpha_2=1e-06, compute_score=False, copy_X=True,
+       fit_intercept=True, lambda_1=1e-06, lambda_2=1e-06, n_iter=300,
+       normalize=False, threshold_lambda=10000.0, tol=0.001, verbose=False), BayesianRidge(alpha_1=1e-06, alpha_2=1e-06, compute_score=False, copy_X=True,
+       fit_intercept=True, lambda_1=1e-06, lambda_2=1e-06, n_iter=300,
+       normalize=False, tol=0.001, verbose=False), ElasticNet(alpha=1.0, copy_X=True, fit_intercept=True, l1_ratio=0.5,
+      max_iter=1000, normalize=False, positive=False, precompute=False,
+      random_state=None, selection='cyclic', tol=0.0001, warm_start=False), LassoLarsCV(copy_X=True, cv=None, eps=2.2204460492503131e-16,
+      fit_intercept=True, max_iter=500, max_n_alphas=1000, n_jobs=1,
+      normalize=True, positive=False, precompute='auto', verbose=False), LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False), SGDRegressor(alpha=0.0001, average=False, epsilon=0.1, eta0=0.01,
+       fit_intercept=True, l1_ratio=0.15, learning_rate='invscaling',
+       loss='squared_loss', n_iter=5, penalty='l2', power_t=0.25,
+       random_state=None, shuffle=True, verbose=0, warm_start=False), KNeighborsRegressor(algorithm='auto', leaf_size=30, metric='minkowski',
+          metric_params=None, n_jobs=1, n_neighbors=5, p=2,
+          weights='uniform'), LinearSVR(C=1.0, dual=True, epsilon=0.0, fit_intercept=True,
+     intercept_scaling=1.0, loss='epsilon_insensitive', max_iter=1000,
+     random_state=None, tol=0.0001, verbose=0), DecisionTreeRegressor(criterion='mse', max_depth=None, max_features=None,
+           max_leaf_nodes=None, min_samples_leaf=1, min_samples_split=2,
+           min_weight_fraction_leaf=0.0, presort=False, random_state=None,
+           splitter='best'), AdaBoostRegressor(base_estimator=None, learning_rate=1.0, loss='linear',
+         n_estimators=50, random_state=None), RandomForestRegressor(bootstrap=True, criterion='mse', max_depth=None,
+           max_features='auto', max_leaf_nodes=None, min_samples_leaf=1,
+           min_samples_split=2, min_weight_fraction_leaf=0.0,
+           n_estimators=10, n_jobs=1, oob_score=False, random_state=None,
+           verbose=0, warm_start=False), GradientBoostingRegressor(alpha=0.9, init=None, learning_rate=0.1, loss='ls',
+             max_depth=3, max_features=None, max_leaf_nodes=None,
+             min_samples_leaf=1, min_samples_split=2,
+             min_weight_fraction_leaf=0.0, n_estimators=100,
+             presort='auto', random_state=None, subsample=1.0, verbose=0,
+             warm_start=False), BaggingRegressor(base_estimator=None, bootstrap=True,
+         bootstrap_features=False, max_features=1.0, max_samples=1.0,
+         n_estimators=10, n_jobs=1, oob_score=False, random_state=None,
+         verbose=0, warm_start=False), KernelRidge(alpha=1, coef0=1, degree=3, gamma=None, kernel='linear',
+      kernel_params=None), NuSVR(C=1.0, cache_size=200, coef0=0.0, degree=3, gamma='auto', kernel='rbf',
+   max_iter=-1, nu=0.5, shrinking=True, tol=0.001, verbose=False), 
+K Value = 0
+------
+0.993819297998,0.991402360503,0.465389385515,0.876504635167,0.99016251905,0.897041534751,0.964748821221,0.992079925442,0.964267907027,0.963358888511,0.976012557382,0.97963587779,0.981857286917,0.981433459152,0.811023385273,
+K Value = 1
+------
+0.90423950276,0.938760377103,0.335217859419,0.724289804352,0.000156972177158,0.868352297528,0.896673438793,0.926917287771,0.923283606052,0.914451442898,0.940882112756,0.933075635708,0.944061873313,0.952124785953,0.603640111277,
+K Value = 2
+------
+0.892915983121,0.945471245732,0.415269172512,0.600467300452,0.00253651150533,0.779172320737,0.857121858082,0.885235237005,0.870111573654,0.833082601834,0.915220163012,0.922040360366,0.892960950515,0.864699193132,0.499174806536,
+K Value = 3
+------
+0.819686293992,0.884411603894,0.118424097324,0.517753535822,0.00130136324422,0.65820399028,0.858138324131,0.840789218367,0.879457011595,0.793688942764,0.899557899554,0.872359807789,0.889331399821,0.901277984875,0.377117014756,
