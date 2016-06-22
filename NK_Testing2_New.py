@@ -13,8 +13,7 @@ import NK_Landscape
 from scipy.stats import poisson
 from scipy.stats import pearsonr
 import warnings
-
-from time import sleep
+import time
 from tqdm import tqdm
 
 import warnings
@@ -176,6 +175,12 @@ library_size = 3*n        #Library size = 3*n
 f = open('NK_Model_Testing.txt', 'w')
 f2 = open('NK_Model_Correlations.txt','w')
 
+f.write('N = ' + str(n))
+f.write('\nLibrary Size = ' + str(library_size) + '\n--------\n')
+f2.write('N = ' + str(n))
+f2.write('\nLibrary Size = ' + str(library_size) + '\n--------\n')
+
+
 predict_master_list = []
 true_master_list = []
 
@@ -183,7 +188,7 @@ true_master_list = []
 #Write CLF list to file
 for i in clf_list:
     print(str(i) + '\n')
-    f2.write(str(i) + ', ')
+    f2.write(str(i) + ', \n')
 beg = time.clock()
 
 #Go through different K Values
@@ -194,7 +199,7 @@ for K in K_list:
     print('\n\nK = ' + str(K))
 
     f.write('\n##########\nNew Fitness Landscape \nK = ' + str(K) + '\n##########\n')
-    f2.write('\nK Value = ' + str(K) + '\n------\n')
+    f2.write('\n\n------\nK Value = ' + str(K) + '\n------\n')
 
 
     predict_list_by_clf = []
@@ -208,8 +213,7 @@ for K in K_list:
 
         f.write('\nNew CLF, K = ' + str(K) + '\n' + str(clf) + '\n---------\n')
         print('\nProgress Bar: ')
-        for j in tqdm(range(150)):
-            sleep(0.01)
+        for j in tqdm(range(2000)):
 
             #Specify parent sequence and library
             parent = [np.random.randint(num_AA) for i in range(n)]
@@ -256,7 +260,7 @@ for K in K_list:
                 predict_list.append(Y_predicted[0])
                 true_list.append(Y_test[0])
 
-                f.write(str(Y_predicted[0]) + ',' + str(Y_test[0]) + '\n')
+                f.write(str(Y_predicted[0]) + ', ' + str(Y_test[0]) + '\n')
 
             except np.linalg.linalg.LinAlgError as err:
                 print(clf)
@@ -295,7 +299,7 @@ for K in K_list:
         write_me = 'Rsquared : ' + str(r[0,1]**2) + '\n'
         print(write_me)
         f.write(write_me)
-        f2.write(str(r[0,1]**2) + ',')
+        f2.write(str(r[0,1]**2) + '\n')
         predict_list_by_clf.append(predict_list)
         true_list_by_clf.append(true_list)
 
