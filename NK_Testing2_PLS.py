@@ -81,7 +81,7 @@ def epm_library(parent, library_size, rate = 1):
     seq_list.append(parent[:])
     for i, num_mut in enumerate(num_mutL):
         for j in range(dist_countL[i]):
-            seq_list.append(mutate(parent, num_mut)[:])
+            seq_list.append(mutate(parent[:], num_mut)[:])
 
     return seq_list
 

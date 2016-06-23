@@ -11,7 +11,7 @@ import random
 from scipy.stats import poisson
 
 class NKLandscape():
-    def __init__(self, n, k, bidirect = False, savespace = False, num_AA = 20, epi_dist = 'even'):
+    def __init__(self, n, k, bidirect = False, savespace = False, num_AA = 20, epi_dist = 'even', epi_type = 'add'):
         '''
         '''
 
@@ -20,6 +20,7 @@ class NKLandscape():
         self.bidirect = bidirect
         self.save_space = savespace
         self.epi_dist = epi_dist
+        self.epi_type = epi_type
 
         self.interactions = self.nk_interactions()
         self.epi = self.nk_epistatic()
@@ -74,21 +75,49 @@ class NKLandscape():
 
         else:
             if self.save_space == False:
-                energy = 0
-                for pos, aa in enumerate(sequence):
-                    index = aa
-                    for i, interaction in enumerate(self.interactions[pos]):
-                        index += 20**(i+1)*(sequence[int(interaction)])
-                    energy += self.epi[pos][index]
-#                     print(str(pos) + ',' + str(index))
-#                 print(energy)
-                return energy
-            elif self.save_space == True:
-                energy = 0
 
-                for pos, aa in enumerate(sequence):
-                    interaction_list = self.interactions[pos]
-                    energy = self.epi(aa)
-                    for ind,inter in enumerate(interaction_list):
-                        energy += self.epi[20*ind + inter]
-                return energy
+                if self.epi_type == 'add':
+                    energy = 0
+                    for pos, aa in enumerate(sequence):
+                        index = aa
+                        for i, interaction in enumerate(self.interactions[pos]):
+                            index += 20**(i+1)*(sequence[int(interaction)])
+                        energy += self.epi[pos][index]
+    #                     print(str(pos) + ',' + str(index))
+    #                 print(energy)
+                    return energy
+
+                elif self.epi_type == 'multiply':
+                    total_energy = 0
+                    for pos, aa in enumerate(sequence):
+                        index = aa
+                        energy = 0
+                        for i, interaction, in enumerate(self.interactions[pos]):
+                            if i == 0:
+                                energy = self.epi([pos][aa])
+                            index += 20**(i+1)*(sequence[int(interaction)])
+                        energy *= self.epi[pos][index]
+                        total_energy += energy
+                    return total_energy
+
+            elif self.save_space == True:
+
+                if self.epi_type == 'add':
+                    energy = 0
+                    for pos, aa in enumerate(sequence):
+                        interaction_list = self.interactions[pos]
+                        energy = self.epi(aa)
+                        for ind,inter in enumerate(interaction_list):
+                            energy += self.epi[20*ind + inter]
+                    return energy
+
+                elif self.epi_type == 'multiply':
+                    total_energy = 0
+                    for pos, aa in enumerate(sequence):
+                        interaction_list = self.interactions[pos]
+                        energy = self.epi(aa)
+                        for ind,inter in enumerate(interaction_list):
+                            energy *= self.epi[20*ind + inter]
+                        total_energy += energy
+                    return total_energy
+
