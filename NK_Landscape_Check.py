@@ -1,8 +1,12 @@
 #Zach Wu 2016
 #Note: NK Testing does not account for stop codons or deletions
 
+#Adding new models from scikit learn
+
 #Add stipulation for unique mutations?
 #(ie: if one site is mutated already, do not mutate again)
+
+#When COPYING lists, must use [:], else making EQUALITY statement
 
 import numpy as np
 import sys
@@ -10,10 +14,17 @@ import random
 import NK_Landscape
 from scipy.stats import poisson
 from scipy.stats import pearsonr
-from scipy import stats
+import warnings
+import time
+from tqdm import tqdm
+import csv
+import pandas as pd
+import seaborn
+import matplotlib.pyplot as plt
 
 import warnings
-warnings.simplefilter('once')
+warnings.filterwarnings("ignore")
+#warnings.simplefilter('once')
 
 sample_parent = [random.randint(0,19) for i in range(10)]
 num_AA = 20
@@ -88,8 +99,6 @@ def epm_library(parent, library_size, rate = 1):
 def single_mutant_library(parent, n):
     ''' sequence should be in [19,3,0,1] format
         n is length of walk
-
-        returns single mutant walk library  (closer to what we do in directed evolution)
     '''
     current_seq = list(parent)[:]
     seq_list = []
@@ -102,121 +111,88 @@ def single_mutant_library(parent, n):
         seq_list.append(temp)
     return seq_list
 
-# def random_library(parent, n):
-#     ''' sequence should be in [19,3,0,1] format
-#         n is length of walk
-
-#         returns completely random library   (closer to a broad representation of sequence space)
-#     '''
-#     current_seq = list(parent)[:]
-#     seq_list = []
-#     seq_list.append(parent[:])
-
-#     poss_AA = [j for j in range(num_AA)]
-
-#     for i in range(n):
-#         j +=0
-
-
-
 ###############################################################
 ###############################################################
 ###############################################################
-
-import time
-
-#run models
-import PartialLeastSquares as PLS
-
+beg = time.clock()
 
 K_list = [0,1,2,3]
-n = 20                    #Sample length = 40
+rate_list = [1,2,3,4,5]
+n = 400                    #Sample length = 40
 library_size = 3*n        #Library size = 3*n
 
-
 #whooo
-f = open('NK_Model_Testing(PLS).txt', 'w')
-f2 = open('NK_Model_Correlations(PLS).txt','w')
+f = open('NK_Model_Check.txt', 'w')
 
-predict_master_list = []
-true_master_list = []
+#Construct full library
 
-#Specify parent sequence and library
-parent = [np.random.randint(num_AA) for i in range(n)]
-epm_lib = single_mutant_library(parent, library_size)    #Currently only looking at single mutant walk
-                                                         #repeat for random mutants?
+a = [i for i in range(20)]
+parent = [random.randint(0,19) for i in range(n)]
+epm_lib = epm_library(parent, library_size, rate = 3)
 
-#Featurize
-lib_features = NK_Featurize(epm_lib)
+title_list = []
+fitness_list = []
 
-#Run Models
-beg = time.clock()
 for K in K_list:
-    print('\n\nK = ' + str(K))
-
-    f.write('\n##########\nNew Fitness Landscape \nK = ' + str(K) + '\n##########\n')
-    f2.write('K Value = ' + str(K) + '\n------\n')
-    #Make NK_Landscape
-    landscape = NK_Landscape.NKLandscape(n,K, savespace = False, epi_dist = 'gamma')
+    print('\n-------\nK = ' + str(K) + '\n-------\n')
+    landscape = NK_Landscape.NKLandscape(n, K, savespace = False, epi_dist = 'gamma', epi_type = 'add')
     interactions_list = landscape.nk_interactions()
     epistatic_list = landscape.nk_epistatic()
 
-    #Determine Fitnesses
-    lib_fitnessL = []
-    for i in range(len(lib_features)):
-        fitness = landscape.get_Energy(epm_lib[i])
-        lib_fitnessL.append(fitness)
+    for rate in rate_list:
+        epm_lib = epm_library(parent, library_size, rate = 3)
+        #Return normalized fitnesses
+        lib_fitness = [landscape.get_Energy(i) for i in epm_lib]
+        p_fitness = lib_fitness[0]
+        lib_fitness = lib_fitness/p_fitness
 
-    predict_list_by_clf = []
-    true_list_by_clf = []
+        df = pd.DataFrame({'Sequence' : epm_lib, 'Fitness' : lib_fitness})
+        df = df.sort_values(by = 'Fitness', ascending = False)
+
+        #Output Fitness Values to CSV File
+        f = 'n(' + str(n) + ')k(' + str(K) + ')mut_rate(' + str(rate) + ').csv'
+        df.to_csv(f)
+        df.index = range(1,len(df) + 1)
+
+        #Create NK Model graph
+        plt.figure(figsize=(12,9))
+
+        ax = plt.subplot(111)
+        ax.spines["top"].set_visible(False)
+        ax.spines["bottom"].set_visible(False)
+        ax.spines["right"].set_visible(False)
+        ax.spines["left"].set_visible(False)
+        ax.get_xaxis().tick_bottom()
+        ax.get_yaxis().tick_left()
+        plt.xlim(0,library_size)
+
+        plt.title('ROF Curve: N=' + str(n) +', K=' + str(K) + ', Mut-Rate=' + str(rate))
+        plt.plot(range(1,len(df) + 1), df.Fitness)
+        plt.savefig(f[:-3] + 'png', bbox_inches = 'tight')
+
+        title = 'N=' + str(n) +', K=' + str(K) + ', Mut-Rate=' + str(rate)
+
+        title_list.append(title)
+        lib_fitness = sorted(lib_fitness, reverse = True)
+        fitness_list.append(lib_fitness)
+fitness_array = np.asarray(fitness_list).T
+df2 = pd.DataFrame(fitness_array, columns = title_list)
 
 
-    f.write('\nNew CLF:\n' + 'PLS' + '\n---------\n')
+plt.figure()
+df2.plot(subplots=True, layout=(len(K_list), len(rate_list)), figsize=(20,15), sharex=True)
+plt.savefig('eureka.png', bbox_inches = 'tight')
+        # fig, axes = plt.subplots(nrows = len(K_list), ncols = len(rate_list))
 
-    predict_list = []
-    true_list = []
-    #Fit to model and save fitnesses:
-    for j in range(len(lib_features)):
-        X_test, Y_test = [lib_features[j]], [lib_fitnessL[j]]
-        X_train = lib_features[0:j] + lib_features[j+1:]
-        Y_train = lib_fitnessL[0:j] + lib_fitnessL[j+1:]
+# for i, K in K_list:
+#     for j, mut_rate in rate_list:
+#         df[title_list[i*len(rate_list) + j]].plt(ax=axes[
 
-        np.savetxt('X_temp.csv', X_train, delimiter = ',')
-        np.savetxt('Y_temp.csv', Y_train, delimiter = ',')
+#     with open (file_name, 'wb') as f:
+#         writer = csv.writer(f)
+#         writer.writerows(lib_fitness)
 
-        pls = PLS.PartialLeastSquares(XMatrix_file = 'X_temp.csv', YMatrix_file = 'Y_temp.csv', epsilon = 0.001)
-        pls.get_XMatrix_from_csv()
-        pls.get_YMatrix_from_csv()
-        B = pls.PLS()
-
-        temp = X_test * B
-        print('--')
-        print(temp)
-        print(X_test)
-        print(B)
-
-        Y_predicted = temp[0,0]
-        #Y_predicted = np.dot(X_test,B)
-
-        print(type(Y_predicted))
-        predict_list.append(Y_predicted)
-        true_list.append(Y_test[0])
-
-        f.write(str(Y_predicted) + ',' + str(Y_test[0]) + '\n')
-
-    #Determine Pearson's R
-    #r = np.corrcoef(predict_list, true_list)
-    slope, intercept, r_value, p_value, std_err = stats.linregress(predict_list, true_list)
-    r = r_value
-    write_me = 'Rsquared : ' + str(r**2) + '\n'
-    print(write_me)
-    f.write(write_me)
-    f2.write(str(r**2) + ',')
-    predict_list_by_clf.append(predict_list)
-    true_list_by_clf.append(true_list)
-
-f.close()
-f2.close()
-
+# f.close()
+# f2.close()
 print('end')
 print('runtime = ' + str(time.clock() - beg))

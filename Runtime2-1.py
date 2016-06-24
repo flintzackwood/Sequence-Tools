@@ -6,7 +6,7 @@ comp_AA_dic_rev = dict((i,j) for i,j in enumerate(complete_AA_list))
 
 
 print('start')
-import SequenceTools2
+import SequenceTools
 import numpy as np
 from Bio.Seq import Seq
 from Bio.Alphabet import IUPAC
@@ -22,30 +22,30 @@ ref = 'CTGGCGAAACAGAAGGGTTGCATGGCTTGCCACGACCTGAAAGCCAAGAAAGTTGGCCCTGCATACGCAGATG
 #Finding Mutated Indices
 file_dir1 = '/Users/ZacharyWu1/Documents/SequenceTools/data/Hth_NDT2_First/*.seq'
 #print(list_seq_files)
-bpseqL,bpseqStrL,readLengthL,AASeqL,mutIndL, alteredBPs, fileL = SequenceTools2.seqList_from_file(file_dir1, ref = ref)
+bpseqL,bpseqStrL,readLengthL,AASeqL,mutIndL, alteredBPs, fileL = SequenceTools.seqList_from_file(file_dir1, ref = ref)
 file_dir2 = '/Users/ZacharyWu1/Documents/SequenceTools/data/Hth_NDT2_Reseq/*.seq'
-bpseqL2,bpseqStrL2,readLengthL2,AASeqL2,mutIndL2, alteredBPs2, fileL2 = SequenceTools2.seqList_from_file(file_dir2, ref = ref)
+bpseqL2,bpseqStrL2,readLengthL2,AASeqL2,mutIndL2, alteredBPs2, fileL2 = SequenceTools.seqList_from_file(file_dir2, ref = ref)
 
 #Using Mutated Indices
 mut_indices2 = [41,42,55,58]
-bpseqL,bpseqStrL,readLengthL,AASeqL,mutIndL, alteredBPs, fileL = SequenceTools2.seqList_from_file(file_dir1, ref = ref, cutoff = 58, mut_Ind = mut_indices2)
-bpseqL2,bpseqStrL2,readLengthL2,AASeqL2,mutIndL2, alteredBPs2, fileL2 = SequenceTools2.seqList_from_file(file_dir2, ref = ref, cutoff = 58, mut_Ind = mut_indices2)
+bpseqL,bpseqStrL,readLengthL,AASeqL,mutIndL, alteredBPs, fileL = SequenceTools.seqList_from_file(file_dir1, ref = ref, cutoff = 58, mut_Ind = mut_indices2)
+bpseqL2,bpseqStrL2,readLengthL2,AASeqL2,mutIndL2, alteredBPs2, fileL2 = SequenceTools.seqList_from_file(file_dir2, ref = ref, cutoff = 58, mut_Ind = mut_indices2)
 
 #Combine Two Sequencing Runs
-combined_wellID, combined_AASeqL = SequenceTools2.combineSeqData(fileL,AASeqL,fileL2,AASeqL2)
+combined_wellID, combined_AASeqL = SequenceTools.combineSeqData(fileL,AASeqL,fileL2,AASeqL2)
 #Generate Mutation List
-mutList = SequenceTools2.mutList_NDT(combined_AASeqL, mut_indices2)
+mutList = SequenceTools.mutList_NDT(combined_AASeqL, mut_indices2)
 #AAFeaturize
-sample_features_P2 = SequenceTools2.AAFeaturize(mutList, mut_indices2)
+sample_features_P2 = SequenceTools.AAFeaturize(mutList, mut_indices2)
 #Read in HPLC Data from Plate 2
 fname = 'data/2nd Plate Data (for Import) Averaged.csv'
-regr_dat,class_dat = SequenceTools2.getScreeningData(fname)
+regr_dat,class_dat = SequenceTools.getScreeningData(fname)
 
 
 #Match sequences to HPLC data by well
-sample_seqm_P2, regression_dm_P2, class_dm_P2, well_id_list_P2 = SequenceTools2.matchData2WellID(combined_wellID, combined_AASeqL,regr_dat,class_dat)
+sample_seqm_P2, regression_dm_P2, class_dm_P2, well_id_list_P2 = SequenceTools.matchData2WellID(combined_wellID, combined_AASeqL,regr_dat,class_dat)
 
-mutList_P2 = SequenceTools2.mutList_NDT(sample_seqm_P2, mut_indices2)
+mutList_P2 = SequenceTools.mutList_NDT(sample_seqm_P2, mut_indices2)
 
 print('end1')
 
@@ -72,33 +72,33 @@ print('end1')
 
 #Get sequences from files
 file_dir = '/Users/ZacharyWu1/Documents/SequenceTools/data/Hth_NDT1_Edited/*.seq'
-bpseqL,bpseqStrL,readLengthL,AASeqL,mutIndL, alteredBPs, fileL = SequenceTools2.seqList_from_file(file_dir, ref = ref)
+bpseqL,bpseqStrL,readLengthL,AASeqL,mutIndL, alteredBPs, fileL = SequenceTools.seqList_from_file(file_dir, ref = ref)
 # for i in AASeqL:
 #     print(str(i))
 
 #Mutated residues are: 43,44,57,60
 mut_indices1 = [43,44,57,60]
 #Rerun with cutoff
-bpseqL,bpseqStrL,readLengthL,AASeqL_P1,mutIndL, alteredBPs, fileL_P1 = SequenceTools2.seqList_from_file(file_dir, ref = ref, cutoff = 60, mut_Ind = mut_indices1)
+bpseqL,bpseqStrL,readLengthL,AASeqL_P1,mutIndL, alteredBPs, fileL_P1 = SequenceTools.seqList_from_file(file_dir, ref = ref, cutoff = 60, mut_Ind = mut_indices1)
 #Generate Mutation List
-mutList_P1 = SequenceTools2.mutList_NDT(AASeqL_P1,mut_indices1)
+mutList_P1 = SequenceTools.mutList_NDT(AASeqL_P1,mut_indices1)
 #Feature Representation
-sample_features_P1 = SequenceTools2.AAFeaturize(mutList_P1,mut_indices1) #Manual connect?
+sample_features_P1 = SequenceTools.AAFeaturize(mutList_P1,mut_indices1) #Manual connect?
 #Screening Data
 fname = 'data/1st Plate Data (for Import) Averaged.csv'
-regr_dat, class_dat = SequenceTools2.getScreeningData(fname)
+regr_dat, class_dat = SequenceTools.getScreeningData(fname)
 
 
 #Match sequence to screening data
-sample_seqm_P1, regression_dm_P1, class_dm_P1, well_id_list_P1 = SequenceTools2.matchData2SeqFile(file_dir, [-10,-7], AASeqL_P1, regr_dat, class_dat)
+sample_seqm_P1, regression_dm_P1, class_dm_P1, well_id_list_P1 = SequenceTools.matchData2SeqFile(file_dir, [-10,-7], AASeqL_P1, regr_dat, class_dat)
 print('end2')
 
 #Now Machine Learning can actually happen.
 
 #Combine 1st and 2nd plates
 
-sample_seqm_features1 = SequenceTools2.AAFeaturize(mutList_P1, mut_indices1)
-sample_seqm_features2 = SequenceTools2.AAFeaturize(mutList_P2, mut_indices2)
+sample_seqm_features1 = SequenceTools.AAFeaturize(mutList_P1, mut_indices1)
+sample_seqm_features2 = SequenceTools.AAFeaturize(mutList_P2, mut_indices2)
 sample_seqm = sample_seqm_features1 + sample_seqm_features2
 
 mutList = mutList_P1 + mutList_P2
