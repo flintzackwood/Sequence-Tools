@@ -20,7 +20,7 @@ from tqdm import tqdm
 import csv
 import pandas as pd
 import seaborn
-import matplotlib
+import matplotlib.pyplot as plt
 
 import warnings
 warnings.filterwarnings("ignore")
@@ -123,34 +123,70 @@ library_size = 3*n        #Library size = 3*n
 
 #whooo
 f = open('NK_Model_Check.txt', 'w')
-f2 = open('NK_Model_Correlations.txt','w')
 
 #Construct full library
 
 a = [i for i in range(20)]
 parent = [random.randint(0,19) for i in range(n)]
 epm_lib = epm_library(parent, library_size, rate = 3)
-rate = 3
 
-for K in [0]:
+title_list = []
+fitness_list = []
+
+for K in K_list:
     print('\n-------\nK = ' + str(K) + '\n-------\n')
-    landscape = NK_Landscape.NKLandscape(n, K, savespace = False, epi_dist = 'gamma')
+    landscape = NK_Landscape.NKLandscape(n, K, savespace = False, epi_dist = 'gamma', epi_type = 'add')
     interactions_list = landscape.nk_interactions()
     epistatic_list = landscape.nk_epistatic()
 
-    lib_fitness = [landscape.get_Energy(i) for i in epm_lib]
+    for rate in rate_list:
+        epm_lib = epm_library(parent, library_size, rate = 3)
+        #Return normalized fitnesses
+        lib_fitness = [landscape.get_Energy(i) for i in epm_lib]
+        p_fitness = lib_fitness[0]
+        lib_fitness = lib_fitness/p_fitness
 
-    df = pd.DataFrame({'Sequence' : epm_lib, 'Fitness' : lib_fitness})
-    df = df.sort_values(by = 'Fitness')
+        df = pd.DataFrame({'Sequence' : epm_lib, 'Fitness' : lib_fitness})
+        df = df.sort_values(by = 'Fitness', ascending = False)
 
-    #Output Fitness Values to CSV File
-    f = 'n(' + str(n) + ')k(' + str(K) + ')mut_rate(' + str(rate) + ').csv'
-    df.to_csv(f)
+        #Output Fitness Values to CSV File
+        f = 'n(' + str(n) + ')k(' + str(K) + ')mut_rate(' + str(rate) + ').csv'
+        df.to_csv(f)
+        df.index = range(1,len(df) + 1)
 
-    plt.plot(df2.Fitness
+        #Create NK Model graph
+        plt.figure(figsize=(12,9))
 
-    #Create NK Model graph
+        ax = plt.subplot(111)
+        ax.spines["top"].set_visible(False)
+        ax.spines["bottom"].set_visible(False)
+        ax.spines["right"].set_visible(False)
+        ax.spines["left"].set_visible(False)
+        ax.get_xaxis().tick_bottom()
+        ax.get_yaxis().tick_left()
+        plt.xlim(0,library_size)
 
+        plt.title('ROF Curve: N=' + str(n) +', K=' + str(K) + ', Mut-Rate=' + str(rate))
+        plt.plot(range(1,len(df) + 1), df.Fitness)
+        plt.savefig(f[:-3] + 'png', bbox_inches = 'tight')
+
+        title = 'N=' + str(n) +', K=' + str(K) + ', Mut-Rate=' + str(rate)
+
+        title_list.append(title)
+        lib_fitness = sorted(lib_fitness, reverse = True)
+        fitness_list.append(lib_fitness)
+fitness_array = np.asarray(fitness_list).T
+df2 = pd.DataFrame(fitness_array, columns = title_list)
+
+
+plt.figure()
+df2.plot(subplots=True, layout=(len(K_list), len(rate_list)), figsize=(20,15), sharex=True)
+plt.savefig('eureka.png', bbox_inches = 'tight')
+        # fig, axes = plt.subplots(nrows = len(K_list), ncols = len(rate_list))
+
+# for i, K in K_list:
+#     for j, mut_rate in rate_list:
+#         df[title_list[i*len(rate_list) + j]].plt(ax=axes[
 
 #     with open (file_name, 'wb') as f:
 #         writer = csv.writer(f)

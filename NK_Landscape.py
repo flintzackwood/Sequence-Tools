@@ -91,12 +91,13 @@ class NKLandscape():
                     total_energy = 0
                     for pos, aa in enumerate(sequence):
                         index = aa
-                        energy = 0
-                        for i, interaction, in enumerate(self.interactions[pos]):
+                        energy = self.epi[pos][aa]
+                        for i, interaction in enumerate(self.interactions[pos]):
                             if i == 0:
-                                energy = self.epi([pos][aa])
+                                energy = self.epi[pos][aa]
                             index += 20**(i+1)*(sequence[int(interaction)])
-                        energy *= self.epi[pos][index]
+                        if self.K > 0:
+                            energy *= self.epi[pos][index]
                         total_energy += energy
                     return total_energy
 
