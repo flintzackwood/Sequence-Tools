@@ -90,6 +90,18 @@ def epm_library(parent, library_size, rate = 1):
 
     return seq_list
 
+def rand_library(parent, library_size):
+    '''parent is included
+    '''
+    seq_list = []
+    seq_list.append(parent)
+
+    for i in range(library_size-1):
+        rand_seq = [random.randint(0,num_AA-1) for j in i]
+        seq_list.append(rand_seq)
+
+    return seq_list
+
 def single_mutant_library(parent, n):
     ''' sequence should be in [19,3,0,1] format
         n is length of walk
