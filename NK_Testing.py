@@ -225,7 +225,7 @@ for K in K_list:
 
         f.write('\nNew CLF, K = ' + str(K) + '\n' + str(clf) + '\n---------\n')
         print('\nProgress Bar: ')
-        for j in tqdm(range(2000)):
+        for j in tqdm(range(200)):
 
             #Specify parent sequence and library
             parent = [np.random.randint(num_AA) for i in range(n)]
