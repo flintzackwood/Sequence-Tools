@@ -162,13 +162,22 @@ def top_partition_library(landscape, full_library, percent = 10):
 #Create Libraries and store energies.
 
 import time
-n_list = [2,3]             #sequence length  NOTE: n = 5 takes 90 seconds to make, took out 4,5 for testing (and 3
+n_list = [2,3,4,5]             #sequence length  NOTE: n = 5 takes 90 seconds to make, took out 4,5 for testing
 K_list = [0,1,2,3]
 library_sizes = [100*(i+1) for i in range(10)]
 num_landscapes_per = 10
 n_min = n_list[0]
 percent = 10
+repeat_num = 20
 
+f = open('NK_Model_Testing_Nsmall_SingleMutLib_f.txt', 'w')
+f2 = open('NK_Model_LOOCorrelations_Nsmall_SingleMutLib_f2.txt','w')
+f3 = open('NK_Model_TBCCorrelations_Nsmall_SingleMutLib_f3.txt','w')
+f4 = open('NK_Model_TBVCorrelations_Nsmall_SingleMutLib_f4.txt','w')
+f5 = open('NK_Model_TopFracCorrelations_Nsmall_SingleMutLib_f5.txt','w')
+f6 = open('NK_Model_TopPlateCorrelations_Nsmall_SingleMutLib_f6.txt','w')
+
+f4_black_list = []
 
 landscape_data_list = [[[] for k in range(len(K_list))] for n in range(len(n_list))]
 print('Making Landscapes')
@@ -182,6 +191,10 @@ for n in n_list:
                 landscape = NK_Landscape.NKLandscape(n,K, savespace = False, epi_dist = 'gamma')
                 total_space = full_library(n)
                 top_by_count, top_by_value = top_partition_library(landscape, total_space ,percent = percent)
+                if len(top_by_value) < 5:
+                            top_by_value =  top_by_count.head(5)
+                            f4.write('n = ' + str(n) + ' // K = ' + str(K) + ' // ' + ' // index = ' + str(j) + ' did not have enough in tbv.\n')
+                            f4_black_list.append([n,K,j])
 
                 landscape_data_list[n-n_min][K].append([landscape, total_space, top_by_count, top_by_value])
 print('Landscapes Done')
@@ -208,12 +221,7 @@ clf_list = [LinearRegression(), KNeighborsRegressor()]
 # library_size = 3*n        #Library size = 3*n
 
 
-f = open('NK_Model_Testing_Nsmall_SingleMutLib_200.txt', 'w')
-f2 = open('NK_Model_LOOCorrelations_Nsmall_SingleMutLib_200.txt','w')
-f3 = open('NK_Model_TBCCorrelations_Nsmall_SingleMutLib_200.txt','w')
-f4 = open('NK_Model_TBVCorrelations_Nsmall_SingleMutLib_200.txt','w')
-f5 = open('NK_Model_TopFracCorrelations_Nsmall_SingleMutLib_200.txt','w')
-f6 = open('NK_Model_TopPlateCorrelations_Nsmall_SingleMutLib_200.txt','w')
+
 
 
 f.write('Single Mutant Library, 200 Iterations')
@@ -240,7 +248,7 @@ time_start = time.clock()
 #Train base/default models
 
 for n in n_list:
-    print('\n\nn = ' + str(n))
+    print('\n\n##############\n##############\n     n = ' + str(n) + '\n##############\n##############\n')
 
     for K in K_list:
         if K < n :
@@ -248,7 +256,7 @@ for n in n_list:
             predict_list_by_clf = []
             true_list_by_clf = []
 
-            new_NK_write = '\n##########\nNew Fitness Landscape \nn = ' + str(n) + '// K = ' + str(K) + '\n##########\n'
+            new_NK_write = '\n##########\nNew Fitness Landscape \nn = ' + str(n) + ' // K = ' + str(K) + '\n##########\n'
 
             f.write(new_NK_write)
             f2.write(new_NK_write)
@@ -274,7 +282,7 @@ for n in n_list:
                 print('\nProgress Bar: ')
 
                 for library_size in library_sizes:
-                    write_me = '\nLibrary size = ' + str(library_size)
+                    write_me = '\nLibrary size = ' + str(library_size) + '\n\n'
                     print(write_me)
                     f.write(write_me)
                     f2.write(write_me)
@@ -283,12 +291,19 @@ for n in n_list:
                     f5.write(write_me)
                     f6.write(write_me)
 
+                    t5_2, t3, t4, t5, t6 = [[] for x in range(5)]
+                    u5_2, u3, u4, u5, u6 = [[] for x in range(5)]
+
                     #WRITE TO FILES
 
                     predict_list = []
                     true_list = []
 
                     for landscape_data_list_index in tqdm(range(num_landscapes_per)):
+                        blacklisted = False
+                        for i in f4_black_list:
+                            if i == [n, K, landscape_data_list_index]:
+                                blacklist = True
                         #Call NK_Landscape          -- N/K are currently hardcoded.
                         landscape, total_space, tbc, tbv = landscape_data_list[n-n_min][K][landscape_data_list_index]
                         tbc_array, tbv_array = tbc.as_matrix(columns = ['Seq'])[:,0], tbv.as_matrix(columns = ['Seq'])[:,0]
@@ -297,7 +312,7 @@ for n in n_list:
                         epistatic_list = landscape.nk_epistatic()
 
 
-                        for j in (range(20)):                   #Old tqdm spot (for progress bar)
+                        for j in (range(repeat_num)):                   #Old tqdm spot (for progress bar)
                             #Specify parent sequence and library
                             parent = [np.random.randint(num_AA) for i in range(n)]
                             epm_lib = single_mutant_library(parent, library_size)
@@ -343,8 +358,10 @@ for n in n_list:
                                 Y_predict_tbv = clf.predict(NK_Featurize(tbv_array))
                                 r = np.corrcoef(Y_predict_tbc, tbc_true_nrg)
                                 f3.write(str(r[0,1]**2) + '\n')
+                                t3.append(r[0,1]**2)
                                 r = np.corrcoef(Y_predict_tbv, tbv_true_nrg)
                                 f4.write(str(r[0,1]**2) + '\n')
+                                t4.append(r[0,1]**2)
 
 
                                 #Make needed matrices
@@ -358,7 +375,8 @@ for n in n_list:
                                 tbc_pred = predict_lib.nlargest(top_count, 'Energy')               #returns top section by count (fraction)
                                 tbv_pred = predict_lib[predict_lib.Energy > top_value_cutoff]          #returns top section by value
                                 tbc_pred_array, tbv_pred_array = tbc_pred.as_matrix(columns = ['Seq'])[:,0], tbv_pred.as_matrix(columns = ['Seq'])[:,0]
-                                tbc_pred_strings = ', '.join(str(x) for x in list_of_ints)
+                                if len(tbv_pred_array) < 5:
+                                    tbv_pred_array = tbc_pred_array[:5]
                                 tbc_pred100 = tbc_pred_array[:100]
 
                                 #Count and Record
@@ -366,17 +384,24 @@ for n in n_list:
                                 tbv_count = 0
                                 tbc_100count = 0
                                 for ind, seq in enumerate(tbc_pred_array):
-                                    if seq == tbc_array[ind]:
-                                        tbc_count += 1
-                                        if ind < 100:
-                                            tbc_100count += 1
+                                    for tbc_real in tbc_array:
+                                        if tbc_real == seq:
+                                            tbc_count += 1
+                                            if ind < 100:
+                                                tbc_100count += 1
+                                            break
 
                                 for ind, seq in enumerate(tbv_pred_array):
-                                    if seq == tbv_array[ind]:
-                                        tbv_count += 1
+                                    for tbv_real in tbv_array:
+                                        if tbv_real == seq:
+                                            tbv_count += 1
 
-                                f5.write(str(tbc_count) + ',' + str(len(tbc_pred_array)) + ',' + str(tbv_count) + ',' + str(tbv_count) + ',\n')
-                                f6.write(str(tbv_count) + '\n')
+                                f5.write(str(tbc_count) + ',' + str(len(tbc_pred_array)) + ',' + str(len(tbc_array)) + ',' + str(tbv_count) + ',' + str(len(tbv_pred_array)) + ',' + str(len(tbv_array)) + ',\n')
+                                t5.append(tbc_count / len(tbc_pred_array))
+                                t5_2.append(tbv_count/len(tbv_pred_array))
+                                f6.write(str(tbc_100count) + '\n')
+                                t6.append(tbc_100count / 100)
+
 
 
                             except np.linalg.linalg.LinAlgError as err:
@@ -388,14 +413,19 @@ for n in n_list:
 
                         #Determine Pearson's R
 
-                        #1. LOO Classification
-                        r = np.corrcoef(predict_list, true_list)
-                        write_me = 'Rsquared : ' + str(r[0,1]**2) + '\n'
-                        print(write_me)
-                        f.write(write_me)
-                        f2.write(str(r[0,1]**2) + '\n')
-                        predict_list_by_clf.append(predict_list)
-                        true_list_by_clf.append(true_list)
+                    #1. LOO Classification
+                    r = np.corrcoef(predict_list, true_list)
+                    write_me = 'Rsquared : ' + str(r[0,1]**2) + '\n'
+                    #print(write_me)
+                    f.write(write_me)
+                    f2.write(str(r[0,1]**2) + '\n')
+                    f3.write('\n-----\n' + str(np.average(t3)) + ',' + str(np.std(t3)) + '\n\n')
+                    f4.write('\n-----\n' + str(np.average(t4)) + ',' + str(np.std(t4)) + '\n\n')
+                    f5.write('\n-----\n' + str(np.average(t5)) + ',' + str(np.std(t5)) + ',' + str(np.average(t5_2)) + ',' + str(np.std(t5_2)) + '\n\n')
+                    f6.write('\n-----\n' + str(np.average(t6)) + ',' + str(np.std(t6)) + '\n\n')
+
+                    predict_list_by_clf.append(predict_list)
+                    true_list_by_clf.append(true_list)
 
 
             predict_master_list.append(predict_list)
@@ -407,4 +437,4 @@ f4.close()
 f5.close()
 f6.close()
 print('end')
-print('runtime = ' + str(time.clock() - beg))
+print('runtime = ' + str(time.clock() - time_start))
