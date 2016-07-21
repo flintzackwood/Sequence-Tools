@@ -1,0 +1,101 @@
+n = 2 // K = 0 //  // index = 0 did not have enough in tbv.
+n = 2 // K = 0 //  // index = 1 did not have enough in tbv.
+n = 2 // K = 0 //  // index = 2 did not have enough in tbv.
+n = 2 // K = 0 //  // index = 3 did not have enough in tbv.
+n = 2 // K = 0 //  // index = 4 did not have enough in tbv.
+n = 2 // K = 0 //  // index = 5 did not have enough in tbv.
+n = 2 // K = 0 //  // index = 6 did not have enough in tbv.
+n = 2 // K = 0 //  // index = 7 did not have enough in tbv.
+n = 2 // K = 0 //  // index = 8 did not have enough in tbv.
+n = 2 // K = 0 //  // index = 9 did not have enough in tbv.
+n = 2 // K = 1 //  // index = 0 did not have enough in tbv.
+n = 2 // K = 1 //  // index = 1 did not have enough in tbv.
+n = 2 // K = 1 //  // index = 2 did not have enough in tbv.
+n = 2 // K = 1 //  // index = 3 did not have enough in tbv.
+n = 2 // K = 1 //  // index = 4 did not have enough in tbv.
+n = 2 // K = 1 //  // index = 5 did not have enough in tbv.
+n = 2 // K = 1 //  // index = 6 did not have enough in tbv.
+n = 2 // K = 1 //  // index = 7 did not have enough in tbv.
+n = 2 // K = 1 //  // index = 8 did not have enough in tbv.
+n = 2 // K = 1 //  // index = 9 did not have enough in tbv.
+n = 3 // K = 0 //  // index = 0 did not have enough in tbv.
+n = 3 // K = 0 //  // index = 1 did not have enough in tbv.
+n = 3 // K = 0 //  // index = 2 did not have enough in tbv.
+n = 3 // K = 0 //  // index = 3 did not have enough in tbv.
+n = 3 // K = 0 //  // index = 4 did not have enough in tbv.
+n = 3 // K = 0 //  // index = 5 did not have enough in tbv.
+n = 3 // K = 0 //  // index = 6 did not have enough in tbv.
+n = 3 // K = 0 //  // index = 7 did not have enough in tbv.
+n = 3 // K = 0 //  // index = 8 did not have enough in tbv.
+n = 3 // K = 0 //  // index = 9 did not have enough in tbv.
+n = 3 // K = 1 //  // index = 0 did not have enough in tbv.
+n = 3 // K = 1 //  // index = 1 did not have enough in tbv.
+n = 3 // K = 1 //  // index = 2 did not have enough in tbv.
+n = 3 // K = 1 //  // index = 3 did not have enough in tbv.
+n = 3 // K = 1 //  // index = 4 did not have enough in tbv.
+n = 3 // K = 1 //  // index = 5 did not have enough in tbv.
+n = 3 // K = 1 //  // index = 6 did not have enough in tbv.
+n = 3 // K = 1 //  // index = 7 did not have enough in tbv.
+n = 3 // K = 1 //  // index = 8 did not have enough in tbv.
+n = 3 // K = 1 //  // index = 9 did not have enough in tbv.
+n = 3 // K = 2 //  // index = 0 did not have enough in tbv.
+n = 3 // K = 2 //  // index = 1 did not have enough in tbv.
+n = 3 // K = 2 //  // index = 2 did not have enough in tbv.
+n = 3 // K = 2 //  // index = 3 did not have enough in tbv.
+n = 3 // K = 2 //  // index = 4 did not have enough in tbv.
+n = 3 // K = 2 //  // index = 5 did not have enough in tbv.
+n = 3 // K = 2 //  // index = 6 did not have enough in tbv.
+n = 3 // K = 2 //  // index = 7 did not have enough in tbv.
+n = 3 // K = 2 //  // index = 8 did not have enough in tbv.
+n = 3 // K = 2 //  // index = 9 did not have enough in tbv.
+n = 4 // K = 0 //  // index = 0 did not have enough in tbv.
+n = 4 // K = 0 //  // index = 1 did not have enough in tbv.
+n = 4 // K = 0 //  // index = 2 did not have enough in tbv.
+n = 4 // K = 0 //  // index = 3 did not have enough in tbv.
+n = 4 // K = 0 //  // index = 4 did not have enough in tbv.
+n = 4 // K = 0 //  // index = 5 did not have enough in tbv.
+n = 4 // K = 0 //  // index = 6 did not have enough in tbv.
+n = 4 // K = 0 //  // index = 7 did not have enough in tbv.
+n = 4 // K = 0 //  // index = 8 did not have enough in tbv.
+n = 4 // K = 0 //  // index = 9 did not have enough in tbv.
+n = 4 // K = 1 //  // index = 0 did not have enough in tbv.
+n = 4 // K = 1 //  // index = 1 did not have enough in tbv.
+n = 4 // K = 1 //  // index = 2 did not have enough in tbv.
+n = 4 // K = 1 //  // index = 3 did not have enough in tbv.
+n = 4 // K = 1 //  // index = 4 did not have enough in tbv.
+n = 4 // K = 1 //  // index = 5 did not have enough in tbv.
+n = 4 // K = 1 //  // index = 6 did not have enough in tbv.
+n = 4 // K = 1 //  // index = 7 did not have enough in tbv.
+n = 4 // K = 1 //  // index = 8 did not have enough in tbv.
+n = 4 // K = 1 //  // index = 9 did not have enough in tbv.
+n = 4 // K = 2 //  // index = 0 did not have enough in tbv.
+n = 4 // K = 2 //  // index = 1 did not have enough in tbv.
+n = 4 // K = 2 //  // index = 2 did not have enough in tbv.
+n = 4 // K = 2 //  // index = 3 did not have enough in tbv.
+n = 4 // K = 2 //  // index = 4 did not have enough in tbv.
+n = 4 // K = 2 //  // index = 5 did not have enough in tbv.
+n = 4 // K = 2 //  // index = 6 did not have enough in tbv.
+n = 4 // K = 2 //  // index = 7 did not have enough in tbv.
+n = 4 // K = 2 //  // index = 8 did not have enough in tbv.
+n = 4 // K = 2 //  // index = 9 did not have enough in tbv.
+n = 4 // K = 3 //  // index = 0 did not have enough in tbv.
+n = 4 // K = 3 //  // index = 1 did not have enough in tbv.
+n = 4 // K = 3 //  // index = 2 did not have enough in tbv.
+n = 4 // K = 3 //  // index = 3 did not have enough in tbv.
+n = 4 // K = 3 //  // index = 4 did not have enough in tbv.
+n = 4 // K = 3 //  // index = 5 did not have enough in tbv.
+n = 4 // K = 3 //  // index = 6 did not have enough in tbv.
+n = 4 // K = 3 //  // index = 7 did not have enough in tbv.
+n = 4 // K = 3 //  // index = 8 did not have enough in tbv.
+n = 4 // K = 3 //  // index = 9 did not have enough in tbv.
+
+##########
+New Fitness Landscape 
+n = 2 // K = 0
+##########
+
+New CLF: LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)
+---------
+
+Library size = 100
+

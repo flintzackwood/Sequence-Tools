@@ -162,20 +162,20 @@ def top_partition_library(landscape, full_library, percent = 10):
 #Create Libraries and store energies.
 
 import time
-n_list = [2,3,4,5]             #sequence length  NOTE: n = 5 takes 90 seconds to make, took out 4,5 for testing
+n_list = [2,3,4]             #sequence length  NOTE: n = 5 takes 90 seconds to make, took out 4,5 for testing
 K_list = [0,1,2,3]
-library_sizes = [100*(i+1) for i in range(10)]
-num_landscapes_per = 10
+library_sizes = [100*2*(i+1) for i in range(3)]
+num_landscapes_per = 1
 n_min = n_list[0]
-percent = 10
+percent = 1
 repeat_num = 20
 
-f = open('NK_Model_Testing_Nsmall_SingleMutLib10Percent_f.txt', 'w')
-f2 = open('NK_Model_LOOCorrelations_Nsmall_SingleMutLib10Percent_f2.txt','w')
-f3 = open('NK_Model_TBCCorrelations_Nsmall_SingleMutLib10Percent_f3.txt','w')
-f4 = open('NK_Model_TBVCorrelations_Nsmall_SingleMutLib10Percent_f4.txt','w')
-f5 = open('NK_Model_TopFracCorrelations_Nsmall_SingleMutLib10Percent_f5.txt','w')
-f6 = open('NK_Model_TopPlateCorrelations_Nsmall_SingleMutLib10Percent_f6.txt','w')
+f = open('NK_Model_Testing_Nsmall_SingleMutLib1Percent_fs.txt', 'w')
+f2 = open('NK_Model_LOOCorrelations_Nsmall_SingleMutLib1Percent_f2s.txt','w')
+f3 = open('NK_Model_TBCCorrelations_Nsmall_SingleMutLib1Percent_f3s.txt','w')
+f4 = open('NK_Model_TBVCorrelations_Nsmall_SingleMutLib1Percent_f4s.txt','w')
+f5 = open('NK_Model_TopFracCorrelations_Nsmall_SingleMutLib1Percent_f5s.txt','w')
+f6 = open('NK_Model_TopPlateCorrelations_Nsmall_SingleMutLib1Percent_f6s.txt','w')
 
 f4_black_list = []
 
@@ -215,7 +215,7 @@ from sklearn import cross_validation
 from sklearn.kernel_ridge import KernelRidge
 ###############################################################
 #clf_list2 = [ARDRegression(), BayesianRidge(), ElasticNet(), LassoLarsCV(), LinearRegression(), SGDRegressor(), KNeighborsRegressor(), LinearSVR(), DecisionTreeRegressor(), AdaBoostRegressor(), RandomForestRegressor(), GradientBoostingRegressor(), BaggingRegressor(), KernelRidge(), NuSVR()]
-clf_list = [LinearRegression(), KNeighborsRegressor()]
+clf_list = [RandomForestRegressor()]
 # n = 40                    #Sample length = 40
 # library_size_list = [i*80 for i in range(10)]
 # library_size = 3*n        #Library size = 3*n

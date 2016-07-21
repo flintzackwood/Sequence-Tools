@@ -1,0 +1,230 @@
+Date Started: 2016_07_20T17_21_44
+-----
+
+N List : [2, 3]
+K_list : [0, 1, 2, 3]
+Library Sizes : [100, 200]
+Number Landscapes : 1
+Percent : 1
+Repeat Number : 5
+Library Style : random
+Mutation Rate (if applicable) :2LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False),
+KNeighborsRegressor(algorithm='auto', leaf_size=30, metric='minkowski', metric_params=None, n_jobs=1, n_neighbors=5, p=2, weights='uniform'),
+
+##########
+New Fitness Landscape 
+n = 2 // K = 0
+##########
+
+New CLF: LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)
+---------
+
+Library size = 100
+
+0.99868404551
+0.998067025
+0.991904236755
+0.999075670917
+0.997472058052
+
+Library size = 200
+
+1.0
+1.0
+1.0
+1.0
+1.0
+
+New CLF: KNeighborsRegressor(algorithm='auto', leaf_size=30, metric='minkowski', metric_params=None, n_jobs=1, n_neighbors=5, p=2, weights='uniform')
+---------
+
+Library size = 100
+
+0.79336242079
+0.846254421495
+0.685299399117
+0.786911311597
+0.763298088536
+
+Library size = 200
+
+0.704704720261
+0.806275784714
+0.819714581551
+0.870680671433
+0.797023076023
+
+##########
+New Fitness Landscape 
+n = 2 // K = 1
+##########
+
+New CLF: LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)
+---------
+
+Library size = 100
+
+0.123254933703
+-0.0386833825547
+-0.0790183575223
+-0.12088710639
+0.187221307176
+
+Library size = 200
+
+0.27932050236
+0.33290976655
+0.161022887967
+0.180242565824
+0.170072149023
+
+New CLF: KNeighborsRegressor(algorithm='auto', leaf_size=30, metric='minkowski', metric_params=None, n_jobs=1, n_neighbors=5, p=2, weights='uniform')
+---------
+
+Library size = 100
+
+0.0916909082706
+0.280645043228
+-0.182027389157
+0.00870895570991
+0.1499715252
+
+Library size = 200
+
+0.0787254111845
+0.173148658295
+0.217365098519
+0.312531932956
+0.0731359376578
+
+##########
+New Fitness Landscape 
+n = 3 // K = 0
+##########
+
+New CLF: LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)
+---------
+
+Library size = 100
+
+0.998025657986
+0.998248616159
+0.998019326084
+0.997722413141
+1.0
+
+Library size = 200
+
+1.0
+1.0
+1.0
+1.0
+1.0
+
+New CLF: KNeighborsRegressor(algorithm='auto', leaf_size=30, metric='minkowski', metric_params=None, n_jobs=1, n_neighbors=5, p=2, weights='uniform')
+---------
+
+Library size = 100
+
+0.652302638131
+0.806177034798
+0.655809277175
+0.469205802741
+0.60482657355
+
+Library size = 200
+
+0.742781480365
+0.667533946162
+0.725277725806
+0.72017079111
+0.774561529874
+
+##########
+New Fitness Landscape 
+n = 3 // K = 1
+##########
+
+New CLF: LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)
+---------
+
+Library size = 100
+
+0.0564090628253
+0.0202389450769
+-0.0214549789082
+0.0234271375118
+0.200965828683
+
+Library size = 200
+
+0.0209472853305
+-0.00845247909704
+0.347470152069
+-0.037501053699
+-0.0186385966423
+
+New CLF: KNeighborsRegressor(algorithm='auto', leaf_size=30, metric='minkowski', metric_params=None, n_jobs=1, n_neighbors=5, p=2, weights='uniform')
+---------
+
+Library size = 100
+
+0.33112107724
+-0.00240991585565
+0.0752139162529
+0.285023017052
+0.160456123796
+
+Library size = 200
+
+0.137453388634
+0.192164930827
+0.131783986209
+0.201120495503
+0.160614884633
+
+##########
+New Fitness Landscape 
+n = 3 // K = 2
+##########
+
+New CLF: LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)
+---------
+
+Library size = 100
+
+-0.091830036411
+0.0426370679347
+-0.0514631257815
+-0.0638191173971
+-0.0872516544459
+
+Library size = 200
+
+-0.15211443652
+0.0415980939179
+0.0465215905765
+0.0679871693
+-0.0766272821178
+
+New CLF: KNeighborsRegressor(algorithm='auto', leaf_size=30, metric='minkowski', metric_params=None, n_jobs=1, n_neighbors=5, p=2, weights='uniform')
+---------
+
+Library size = 100
+
+0.0241523252056
+-0.0107246898684
+-0.118806600388
+0.111475597763
+-0.0504866449405
+
+Library size = 200
+
+0.0235398972469
+-0.136157873241
+0.0305973559066
+-0.0255467783353
+-0.126322360135
+
+--------
+Date Ended: 2016_07_20T17_22_23

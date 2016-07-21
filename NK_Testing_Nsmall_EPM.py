@@ -74,7 +74,7 @@ def mutate(p2, n):
 
     return current_seq2
 
-def epm_library(parent, library_size, rate = 1):
+def temp_library(parent, library_size, rate = 1):
     '''parent sequence should be in [19,3,0,1] format
         rate is the average number of mutations
         I'm just going to assume a poisson distribution for now
@@ -168,7 +168,7 @@ library_sizes = [100*(i+1) for i in range(10)]
 num_landscapes_per = 10
 n_min = n_list[0]
 percent = 10
-repeat_num = 20
+repeat_num = 100
 
 f = open('NK_Model_Testing_Nsmall_SingleMutLib_f.txt', 'w')
 f2 = open('NK_Model_LOOCorrelations_Nsmall_SingleMutLib_f2.txt','w')
@@ -176,6 +176,8 @@ f3 = open('NK_Model_TBCCorrelations_Nsmall_SingleMutLib_f3.txt','w')
 f4 = open('NK_Model_TBVCorrelations_Nsmall_SingleMutLib_f4.txt','w')
 f5 = open('NK_Model_TopFracCorrelations_Nsmall_SingleMutLib_f5.txt','w')
 f6 = open('NK_Model_TopPlateCorrelations_Nsmall_SingleMutLib_f6.txt','w')
+
+all_data_df = pd.DataFrame()
 
 f4_black_list = []
 
@@ -211,7 +213,6 @@ from sklearn.svm import *
 from sklearn.tree import *
 from sklearn.ensemble import *
 from sklearn import cross_validation
-#from sklearn.cross_decomposition import PLSRegression ##New One
 from sklearn.kernel_ridge import KernelRidge
 ###############################################################
 #clf_list2 = [ARDRegression(), BayesianRidge(), ElasticNet(), LassoLarsCV(), LinearRegression(), SGDRegressor(), KNeighborsRegressor(), LinearSVR(), DecisionTreeRegressor(), AdaBoostRegressor(), RandomForestRegressor(), GradientBoostingRegressor(), BaggingRegressor(), KernelRidge(), NuSVR()]
@@ -253,8 +254,8 @@ for n in n_list:
     for K in K_list:
         if K < n :
             print('\n\nK = ' + str(K))
-            predict_list_by_clf = []
-            true_list_by_clf = []
+**            predict_list_by_clf = []
+**            true_list_by_clf = []
 
             new_NK_write = '\n##########\nNew Fitness Landscape \nn = ' + str(n) + ' // K = ' + str(K) + '\n##########\n'
 
@@ -315,17 +316,17 @@ for n in n_list:
                         for j in (range(repeat_num)):                   #Old tqdm spot (for progress bar)
                             #Specify parent sequence and library
                             parent = [np.random.randint(num_AA) for i in range(n)]
-                            epm_lib = single_mutant_library(parent, library_size)
-                            #epm_lib = epm_library(parent, library_size, rate = 3)  # Single Mutants!!
+                            temp_lib = single_mutant_library(parent, library_size)
+                            #temp_lib = epm_library(parent, library_size, rate = 3)  # Single Mutants!!
                             #Featurize
-                            lib_features = NK_Featurize(epm_lib)
+                            lib_features = NK_Featurize(temp_lib)
 
 
                             #Determine Fitnesses
-                            lib_fitnessL = []
+                            lib_fitness_list = []
                             for i in range(len(lib_features)):
-                                fitness = landscape.get_Energy(epm_lib[i])
-                                lib_fitnessL.append(fitness)
+                                fitness = landscape.get_Energy(temp_lib[i])
+                                lib_fitness_list.append(fitness)
 
                             #rand_ind = random.randint(0, len(epm_lib)-1)
 
@@ -335,9 +336,9 @@ for n in n_list:
                             for z in range(library_size):
                                 rand_ind = z
                                 #LOO Classification
-                                X_test, Y_test = [lib_features[rand_ind]], [lib_fitnessL[rand_ind]]
+                                X_test, Y_test = [lib_features[rand_ind]], [lib_fitness_list[rand_ind]]
                                 X_train = lib_features[0:rand_ind] + lib_features[rand_ind+1:]
-                                Y_train = lib_fitnessL[0:rand_ind] + lib_fitnessL[rand_ind+1:]
+                                Y_train = lib_fitness_list[0:rand_ind] + lib_fitness_list[rand_ind+1:]
 
                                 try:
                                     clf.fit(X_train, Y_train)
@@ -353,7 +354,7 @@ for n in n_list:
 
 
                             try:
-                                clf.fit(lib_features, lib_fitnessL)
+                                clf.fit(lib_features, lib_fitness_list)
                                 Y_predict_tbc = clf.predict(NK_Featurize(tbc_array))      #Check tbc!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                                 Y_predict_tbv = clf.predict(NK_Featurize(tbv_array))
                                 r = np.corrcoef(Y_predict_tbc, tbc_true_nrg)
@@ -396,7 +397,8 @@ for n in n_list:
                                         if tbv_real == seq:
                                             tbv_count += 1
 
-                                f5.write(str(tbc_count) + ',' + str(len(tbc_pred_array)) + ',' + str(len(tbc_array)) + ',' + str(tbv_count) + ',' + str(len(tbv_pred_array)) + ',' + str(len(tbv_array)) + ',\n')
+#                                f5.write(str(tbc_count) + ',' + str(len(tbc_pred_array)) + ',' + str(len(tbc_array)) + ',' + str(tbv_count) + ',' + str(len(tbv_pred_array)) + ',' + str(len(tbv_array)) + ',\n')
+                                f5.write(str(tbc_count) + ',' + str(len(tbc_pred_array)) + ',' + str(tbv_count) + ',' + str(len(tbv_array)) + ',\n')
                                 t5.append(tbc_count / len(tbc_pred_array))
                                 t5_2.append(tbv_count/len(tbv_pred_array))
                                 f6.write(str(tbc_100count) + '\n')
@@ -418,11 +420,14 @@ for n in n_list:
                     write_me = 'Rsquared : ' + str(r[0,1]**2) + '\n'
                     #print(write_me)
                     f.write(write_me)
-                    f2.write(str(r[0,1]**2) + '\n')
+                    LOO_pearsonr = r[0,1]
+                    f2.write(str(r[0,1]**2) + '\n')  #done in remake
                     f3.write('\n-----\n' + str(np.average(t3)) + ',' + str(np.std(t3)) + '\n\n')
                     f4.write('\n-----\n' + str(np.average(t4)) + ',' + str(np.std(t4)) + '\n\n')
                     f5.write('\n-----\n' + str(np.average(t5)) + ',' + str(np.std(t5)) + ',' + str(np.average(t5_2)) + ',' + str(np.std(t5_2)) + '\n\n')
                     f6.write('\n-----\n' + str(np.average(t6)) + ',' + str(np.std(t6)) + '\n\n')
+
+                    all_data_df = all_data_df.append({ 'N' : n, 'K' : k, 'CLF' : clf, 'Library Size' : library_size, 'LOO r' : LOO_pearsonr, 'TBC
 
                     predict_list_by_clf.append(predict_list)
                     true_list_by_clf.append(true_list)

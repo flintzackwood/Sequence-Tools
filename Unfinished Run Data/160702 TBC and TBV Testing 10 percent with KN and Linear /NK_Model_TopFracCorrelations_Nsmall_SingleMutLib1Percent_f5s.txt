@@ -1,0 +1,11 @@
+
+##########
+New Fitness Landscape 
+n = 2 // K = 0
+##########
+
+New CLF: LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)
+---------
+
+Library size = 100
+

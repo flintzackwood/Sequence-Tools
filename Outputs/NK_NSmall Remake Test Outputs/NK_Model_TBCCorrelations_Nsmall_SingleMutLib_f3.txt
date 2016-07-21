@@ -1,0 +1,230 @@
+Date Started: 2016_07_20T17_21_44
+-----
+
+N List : [2, 3]
+K_list : [0, 1, 2, 3]
+Library Sizes : [100, 200]
+Number Landscapes : 1
+Percent : 1
+Repeat Number : 5
+Library Style : random
+Mutation Rate (if applicable) :2LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False),
+KNeighborsRegressor(algorithm='auto', leaf_size=30, metric='minkowski', metric_params=None, n_jobs=1, n_neighbors=5, p=2, weights='uniform'),
+
+##########
+New Fitness Landscape 
+n = 2 // K = 0
+##########
+
+New CLF: LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)
+---------
+
+Library size = 100
+
+1.0
+1.0
+1.0
+1.0
+1.0
+
+Library size = 200
+
+1.0
+1.0
+1.0
+1.0
+1.0
+
+New CLF: KNeighborsRegressor(algorithm='auto', leaf_size=30, metric='minkowski', metric_params=None, n_jobs=1, n_neighbors=5, p=2, weights='uniform')
+---------
+
+Library size = 100
+
+0.999120484799
+0.920217643025
+0.946222238588
+0.400653692534
+-0.652272395442
+
+Library size = 200
+
+0.19160787373
+0.257616461292
+-0.43773235697
+0.236638808893
+0.403481308705
+
+##########
+New Fitness Landscape 
+n = 2 // K = 1
+##########
+
+New CLF: LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)
+---------
+
+Library size = 100
+
+-0.875710777401
+-0.461238388247
+0.777293596999
+-0.601623963175
+0.502286568879
+
+Library size = 200
+
+-0.121814380348
+-0.381540087101
+0.786424857492
+0.149487688931
+0.782108319022
+
+New CLF: KNeighborsRegressor(algorithm='auto', leaf_size=30, metric='minkowski', metric_params=None, n_jobs=1, n_neighbors=5, p=2, weights='uniform')
+---------
+
+Library size = 100
+
+0.741051401572
+-0.326804593363
+-0.311163791158
+0.417363520204
+-0.835429553764
+
+Library size = 200
+
+0.920723330971
+0.502602696291
+0.589631567481
+-0.384969880496
+-0.743991210562
+
+##########
+New Fitness Landscape 
+n = 3 // K = 0
+##########
+
+New CLF: LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)
+---------
+
+Library size = 100
+
+1.0
+0.999542820965
+0.9985960001
+0.999029804952
+1.0
+
+Library size = 200
+
+1.0
+1.0
+1.0
+1.0
+1.0
+
+New CLF: KNeighborsRegressor(algorithm='auto', leaf_size=30, metric='minkowski', metric_params=None, n_jobs=1, n_neighbors=5, p=2, weights='uniform')
+---------
+
+Library size = 100
+
+0.316018452033
+0.418479709492
+0.276235021718
+0.126983532194
+0.439862359976
+
+Library size = 200
+
+0.530941476842
+0.439475188683
+0.466144103922
+0.280878267487
+0.427514217715
+
+##########
+New Fitness Landscape 
+n = 3 // K = 1
+##########
+
+New CLF: LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)
+---------
+
+Library size = 100
+
+0.140857473728
+-0.104102311768
+0.0573278889331
+-0.00369664795354
+0.184710780805
+
+Library size = 200
+
+0.0165319079056
+-0.138788528879
+0.35846914884
+-0.0074971116512
+0.014821869181
+
+New CLF: KNeighborsRegressor(algorithm='auto', leaf_size=30, metric='minkowski', metric_params=None, n_jobs=1, n_neighbors=5, p=2, weights='uniform')
+---------
+
+Library size = 100
+
+0.186229177218
+0.209829952327
+0.226945267881
+0.000785410134785
+0.0563713098201
+
+Library size = 200
+
+0.289706258738
+0.302523865281
+0.0700722137688
+0.18343407487
+-0.0322825366845
+
+##########
+New Fitness Landscape 
+n = 3 // K = 2
+##########
+
+New CLF: LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)
+---------
+
+Library size = 100
+
+0.0401018330819
+-0.0281808759655
+0.0537974222037
+0.0335650649478
+0.00667929039808
+
+Library size = 200
+
+0.0391188479472
+-0.080649494752
+0.0044513726407
+-0.0700424533955
+-0.0718293843472
+
+New CLF: KNeighborsRegressor(algorithm='auto', leaf_size=30, metric='minkowski', metric_params=None, n_jobs=1, n_neighbors=5, p=2, weights='uniform')
+---------
+
+Library size = 100
+
+0.00202837306534
+0.0107720652926
+0.247918711388
+0.129013451073
+-0.103035538273
+
+Library size = 200
+
+0.0743841505713
+-0.0627175034507
+0.08881105508
+-0.100237373324
+0.099874569076
+
+--------
+Date Ended: 2016_07_20T17_22_23

@@ -1,0 +1,140 @@
+Single Mutant Library, 200 IterationsLinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False), 
+KNeighborsRegressor(algorithm='auto', leaf_size=30, metric='minkowski',
+          metric_params=None, n_jobs=1, n_neighbors=5, p=2,
+          weights='uniform'), 
+
+##########
+New Fitness Landscape 
+n = 2 // K = 0
+##########
+
+New CLF: LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)
+---------
+
+Library size = 100
+
+0.981697253259
+
+Library size = 200
+
+0.998927154709
+
+Library size = 300
+
+0.999954760577
+
+Library size = 400
+
+0.999991336971
+
+Library size = 500
+
+1.0
+
+Library size = 600
+
+1.0
+
+Library size = 700
+
+1.0
+
+Library size = 800
+
+1.0
+
+Library size = 900
+
+1.0
+
+Library size = 1000
+
+1.0
+
+New CLF: KNeighborsRegressor(algorithm='auto', leaf_size=30, metric='minkowski',
+          metric_params=None, n_jobs=1, n_neighbors=5, p=2,
+          weights='uniform')
+---------
+
+Library size = 100
+
+0.604081771214
+
+Library size = 200
+
+0.64775226047
+
+Library size = 300
+
+0.678224315653
+
+Library size = 400
+
+0.70618336032
+
+Library size = 500
+
+0.733973512025
+
+Library size = 600
+
+0.760207584111
+
+Library size = 700
+
+0.777886100697
+
+Library size = 800
+
+0.797044111354
+
+Library size = 900
+
+0.819187013312
+
+Library size = 1000
+
+0.83733989402
+
+##########
+New Fitness Landscape 
+n = 2 // K = 1
+##########
+
+New CLF: LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)
+---------
+
+Library size = 100
+
+1.38290985028e-05
+
+Library size = 200
+
+4.03321136536e-06
+
+Library size = 300
+
+5.58115995435e-06
+
+Library size = 400
+
+0.0492024031679
+
+Library size = 500
+
+0.0569498703624
+
+Library size = 600
+
+0.0597746858159
+
+Library size = 700
+
+0.0654627476122
+
+Library size = 800
+
+0.0640644962689
+
+Library size = 900
+

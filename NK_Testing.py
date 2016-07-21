@@ -38,13 +38,10 @@ def EPM_Poisson_countd(mu, library_size):
             probs_list.append(k_count)
             mut_list.append(k)
     dif = sum(probs_list) - library_size
-#     print(dif)
     mutation_list = [i for i in range(a,b+1)]
     index = mutation_list.index(mu)
     probs_list[index] -= dif
 
-#     print(probs_list)
-#     print(sum(probs_list))
     return probs_list, mut_list
 
 def NK_Featurize(seqList):
@@ -89,6 +86,26 @@ def epm_library(parent, library_size, rate = 1):
             seq_list.append(mutate(parent[:], num_mut)[:])
 
     return seq_list
+
+def true_epm_library(parent, library_size, rate = 1):
+    '''parent sequence should be in [19,3,0,1] format
+        rate is the average number of mutations
+        -using epm model developed by Sun (1995) and verified by Drummond (2005)
+    '''
+
+    dist_countL, num_mutL = true_EPM_countd(rate, library_size)
+
+    seq_list = []
+    seq_list.append(parent[:])
+    for i, num_mut in enumerate(num_mutL):
+        for j in range(dist_countL[i]):
+            seq_list.append(mutate(parent[:], num_mut)[:])
+
+    return seq_list
+
+def true_EPM_countd(rate, library_size):
+    ''' returns true
+    '''
 
 def rand_library(parent, library_size):
     '''parent is included

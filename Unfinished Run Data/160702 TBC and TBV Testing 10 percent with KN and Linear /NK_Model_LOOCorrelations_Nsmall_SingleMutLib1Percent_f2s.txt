@@ -1,0 +1,15 @@
+Single Mutant Library, 200 IterationsLinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False), 
+KNeighborsRegressor(algorithm='auto', leaf_size=30, metric='minkowski',
+          metric_params=None, n_jobs=1, n_neighbors=5, p=2,
+          weights='uniform'), 
+
+##########
+New Fitness Landscape 
+n = 2 // K = 0
+##########
+
+New CLF: LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)
+---------
+
+Library size = 100
+
