@@ -12,7 +12,7 @@ import numpy as np
 import sys
 import random
 import NK_Landscape
-from scipy.stats import poisson
+from scipy.stats impocdrt poisson
 from scipy.stats import pearsonr
 import warnings
 import time
